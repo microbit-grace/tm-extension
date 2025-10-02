@@ -7,16 +7,16 @@
         "servo": "*"
     },
     "files": [
-        "main.blocks",
         "README.md",
         "custom.ts",
         "default.ts",
         "commandMap.ts",
-        "serialCommand.ts",
-        "main.ts"
+        "serialCommand.ts"
     ],
     "testFiles": [
-        "test.ts"
+        "test.ts",
+        "main.blocks",
+        "main.ts"
     ],
     "targetVersions": {
         "branch": "stable8.0",
