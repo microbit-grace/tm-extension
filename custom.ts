@@ -8,7 +8,7 @@
  * Custom blocks
  */
 //% weight=120 color=#3E80F6 icon="" block="Machine Learning"
-namespace Custom {
+namespace TMMachineLearning {
     
     //% block="on green start"
     export function onMLGreenStart(handler: () => void): void {
