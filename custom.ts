@@ -7,22 +7,22 @@
 /**
  * TMMachineLearning blocks
  */
-//% weight=120 color=#3E80F6 icon="" block="Machine Learning"
+//% weight=120 color=#3E80F6 icon="" block="Teachable Machine"
 namespace TMMachineLearning {
     
-    //% block="on green start"
+    //% block="🟢 on green start"
     //% weight=3
     export function onMLGreenStart(handler: () => void): void {
         SerialCommands.onCommand("green", handler)
     }
 
-    //% block="on purple start"
+    //% block="🟣 on purple start"
     //% weight=2
     export function onMLPurpleStart(handler: () => void): void {
         SerialCommands.onCommand("purple", handler)
     }
     
-    //% block="on orange start"
+    //% block="🟠 on orange start"
     //% weight=1
     export function onMLOrangeStart(handler: () => void): void {
         SerialCommands.onCommand("orange", handler)
