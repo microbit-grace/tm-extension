@@ -96,20 +96,27 @@ namespace SerialCommands {
         [Button.AB]: 2,
     }
 
-    let buttonABPressedDown = false
+    let buttonPressed: Button | null = null
     function setupRecordCommand() {
         // Record data for class
         const record = (startOrEnd: 'start' | 'end', button: Button) => {
-            if (button !== Button.AB && 'start') {
-                // Wait to see if it is an AB press first.
-                basic.pause(250)
-                if (buttonABPressedDown) {
+            if (startOrEnd === 'start' && buttonPressed) {
+                // Recording has already started.
+                return;
+            }
+            if (button !== Button.AB && startOrEnd === 'start') {
+                // Abort if AB is pressed.
+                basic.pause(100)
+                if (buttonPressed) {
                     return;
                 }
             }
-            if (button == Button.AB) {
-                buttonABPressedDown = startOrEnd === 'start'
+            if (startOrEnd === 'end' && buttonPressed !== button) {
+                // What has ended is not the button pressed.
+                return;
             }
+            // Record what is pressed.
+            buttonPressed = startOrEnd === "start" ? button : null
             const classId = buttonToClassId[button];
             SerialCommands.sendCommandWithArgument(`${startOrEnd}Record`, classId)
         }
