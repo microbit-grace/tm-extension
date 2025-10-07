@@ -90,24 +90,41 @@ namespace SerialCommands {
         })
     }
 
+    const buttonToClassId = {
+        [Button.A]: 0,
+        [Button.B]: 1,
+        [Button.AB]: 2,
+    }
+
+    let buttonABPressedDown = false
     function setupRecordCommand() {
         // Record data for class
-        const startRecord = (classId: number) => {
-            SerialCommands.sendCommandWithArgument('startRecord', classId)
-        }
-        const endRecord = (classId: number) => {
-            SerialCommands.sendCommandWithArgument('endRecord', classId)
+        const record = (startOrEnd: 'start' | 'end', button: Button) => {
+            if (button !== Button.AB && 'start') {
+                // Wait to see if it is an AB press first.
+                basic.pause(250)
+                if (buttonABPressedDown) {
+                    return;
+                }
+            }
+            if (button == Button.AB) {
+                buttonABPressedDown = startOrEnd === 'start'
+            }
+            const classId = buttonToClassId[button];
+            SerialCommands.sendCommandWithArgument(`${startOrEnd}Record`, classId)
         }
         control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_A,
-            EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => startRecord(0))
+            EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.A))
         control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_A,
-            EventBusValue.MICROBIT_BUTTON_EVT_UP, () => endRecord(0))
+            EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.A))
         control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
-            EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => startRecord(1))
+            EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.B))
         control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
-            EventBusValue.MICROBIT_BUTTON_EVT_UP, () => endRecord(1))
-        input.onLogoEvent(TouchButtonEvent.Touched, () => startRecord(2))
-        input.onLogoEvent(TouchButtonEvent.Released, () => endRecord(2))
+            EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.B))
+        control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_AB,
+            EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.AB))
+        control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_AB,
+            EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.AB))
     }
 }
 
