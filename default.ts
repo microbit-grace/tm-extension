@@ -1,3 +1,50 @@
+// Initialise record on start.
+const buttonToClassId = {
+    [Button.A]: 0,
+    [Button.B]: 1,
+    [Button.AB]: 2,
+}
+
+let buttonPressed: Button | null = null
+function setupRecordCommand() {
+    // Record data for class
+    const record = (startOrEnd: 'start' | 'end', button: Button) => {
+        if (startOrEnd === 'start' && buttonPressed) {
+            // Recording has already started.
+            return;
+        }
+        if (button !== Button.AB && startOrEnd === 'start') {
+            // Abort if AB is pressed.
+            basic.pause(100)
+            if (buttonPressed) {
+                return;
+            }
+        }
+        if (startOrEnd === 'end' && buttonPressed !== button) {
+            // What has ended is not the button pressed.
+            return;
+        }
+        // Record what is pressed.
+        buttonPressed = startOrEnd === "start" ? button : null
+        const classId = buttonToClassId[button];
+        SerialCommands.sendCommandWithArgument(`${startOrEnd}Record`, classId)
+    }
+    control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_A,
+        EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.A))
+    control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_A,
+        EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.A))
+    control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
+        EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.B))
+    control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
+        EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.B))
+    control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_AB,
+        EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.AB))
+    control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_AB,
+        EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.AB))
+}
+
+setupRecordCommand()
+
 // Default program
 namespace SerialCommands {
     const sounds = [
@@ -34,7 +81,6 @@ namespace SerialCommands {
     let prevAngle = 0
 
     export function initialiseDefaults() {
-        setupRecordCommand()
         setupServo()
         setupDefaultCallbacks()
     }
@@ -88,50 +134,6 @@ namespace SerialCommands {
             prevAngle = newAngle
             servos.P0.setAngle(newAngle)
         })
-    }
-
-    const buttonToClassId = {
-        [Button.A]: 0,
-        [Button.B]: 1,
-        [Button.AB]: 2,
-    }
-
-    let buttonPressed: Button | null = null
-    function setupRecordCommand() {
-        // Record data for class
-        const record = (startOrEnd: 'start' | 'end', button: Button) => {
-            if (startOrEnd === 'start' && buttonPressed) {
-                // Recording has already started.
-                return;
-            }
-            if (button !== Button.AB && startOrEnd === 'start') {
-                // Abort if AB is pressed.
-                basic.pause(100)
-                if (buttonPressed) {
-                    return;
-                }
-            }
-            if (startOrEnd === 'end' && buttonPressed !== button) {
-                // What has ended is not the button pressed.
-                return;
-            }
-            // Record what is pressed.
-            buttonPressed = startOrEnd === "start" ? button : null
-            const classId = buttonToClassId[button];
-            SerialCommands.sendCommandWithArgument(`${startOrEnd}Record`, classId)
-        }
-        control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_A,
-            EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.A))
-        control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_A,
-            EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.A))
-        control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
-            EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.B))
-        control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_B,
-            EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.B))
-        control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_AB,
-            EventBusValue.MICROBIT_BUTTON_EVT_DOWN, () => record('start', Button.AB))
-        control.onEvent(EventBusSource.MICROBIT_ID_BUTTON_AB,
-            EventBusValue.MICROBIT_BUTTON_EVT_UP, () => record('end', Button.AB))
     }
 }
 
