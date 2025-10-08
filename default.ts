@@ -30,13 +30,19 @@ namespace SerialCommands {
     ];
 
     // Initialise servo.
-    let servoMode = ""
-    let prevAngle = 0
+    let servoPins = [servos.P0, servos.P1, servos.P2]
+    let servoModes = ["", "", ""]
+    let prevAngles = [0, 0, 0]
+    let serialServoPin = 0
 
     export function initialiseDefaults() {
         setupRecordCommand()
         setupServo()
         setupDefaultCallbacks()
+    }
+
+    export function setServoMode(servoPin: number, mode: string) {
+        servoModes[servoPin] = mode
     }
 
     function setupDefaultCallbacks() {
@@ -48,16 +54,16 @@ namespace SerialCommands {
             }
         })
         callbacks.addCommandCallbackwithArg("servo", function (value) {
-            servoMode = ""
+            servoModes[serialServoPin] = ""
             if (value === -1) {
-                servos.P0.stop()
+                servoPins[serialServoPin].stop()
                 return
             }
             const servoOption = servoOptions[value]
             if (typeof servoOption === "number") {
-                servos.P0.setAngle(servoOption)
+                servoPins[serialServoPin].setAngle(servoOption)
             } else {
-                servoMode = servoOption
+                servoModes[serialServoPin] = servoOption
             }
         })
         callbacks.addCommandCallbackwithArg("sound", function (value) {
@@ -72,22 +78,25 @@ namespace SerialCommands {
     }
     
     function setupServo() {
-        serial.setRxBufferSize(128)
-        basic.forever(function () {
-            if (servoMode !== "slow wave" && servoMode !== "fast wave") {
-                return
-            }
-            let newAngle
-            const isSlowWave = servoMode === "slow wave"
-            if (prevAngle < 90) {
-                newAngle = isSlowWave ? 165 : 120
-            } else {
-                newAngle = isSlowWave ? 15 : 60
-            }
-            basic.pause(isSlowWave ? 500 : 250)
-            prevAngle = newAngle
-            servos.P0.setAngle(newAngle)
-        })
+        for (let i = 0; i < servoModes.length; i++) {
+            const idx = i
+            basic.forever(function () {
+                if (servoModes[idx] !== "slow wave" && servoModes[idx] !== "fast wave") {
+                    return
+                }
+                let newAngle
+                const isSlowWave = servoModes[idx] === "slow wave"
+                if (prevAngles[idx] < 90) {
+                    newAngle = isSlowWave ? 165 : 120
+                } else {
+                    newAngle = isSlowWave ? 15 : 60
+                }
+                basic.pause(isSlowWave ? 500 : 250)
+                prevAngles[idx] = newAngle
+                servoPins[idx].setAngle(newAngle)
+                // serial.writeLine("Servo[" + idx + "] to " + servoModes[idx] + " at " + newAngle)
+            })
+        }
     }
 
     const buttonToClassId = {
