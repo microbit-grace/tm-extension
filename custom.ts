@@ -28,3 +28,61 @@ namespace TMMachineLearning {
         SerialCommands.onCommand("orange", handler)
     }
 }
+
+enum  ServoPinNumber {
+    //% block="P0"
+    P0,
+    //% block="P1"
+    P1,
+    //% block="P2"
+    P2
+}
+
+/**
+ * Additional servo blocks
+ */
+//% color="#03AA74" weight=88 icon="\uf021" blockGap=8
+//% groups='["Gestures", "Positional", "Continuous", "Configuration"]'
+namespace servos {
+    /**
+     * Set fast wave gesture
+     */
+    //% blockId=servossetfastwave block="set servo %servoPin to fast wave"
+    //% servoPin.fieldEditor="gridpicker"
+    //% servoPin.fieldOptions.width=220
+    //% servoPin.fieldOptions.columns=3
+    //% blockGap=8
+    //% group="Gestures"
+    //% weight=5
+    export function setFastWave(servoPin: ServoPinNumber,): void {
+        SerialCommands.setServoMode(servoPin, "fast wave");
+    }
+
+    /**
+     * Set fast wave gesture
+     */
+    //% blockId=servossetslowwave block="set servo %servoPin to slow wave"
+    //% servoPin.fieldEditor="gridpicker"
+    //% servoPin.fieldOptions.width=220
+    //% servoPin.fieldOptions.columns=3
+    //% blockGap=8
+    //% group="Gestures"
+    //% weight=4
+    export function setSlowWave(servoPin: ServoPinNumber,): void {
+        SerialCommands.setServoMode(servoPin, "slow wave");
+    }
+
+    /**
+     * Stop wave gesture
+     */
+    //% blockId=servosstopwave block="stop wave on servo %servoPin"
+    //% servoPin.fieldEditor="gridpicker"
+    //% servoPin.fieldOptions.width=220
+    //% servoPin.fieldOptions.columns=3
+    //% blockGap=8
+    //% group="Gestures"
+    //% weight=1
+    export function stopWave(servoPin: ServoPinNumber): void {
+        SerialCommands.setServoMode(servoPin, "");
+    }
+}

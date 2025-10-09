@@ -13,6 +13,7 @@ namespace SerialCommands {
             return
         }
         callbacks = new CommandCallbacks();
+        serial.setRxBufferSize(128)
         serial.onDataReceived(serial.delimiters(Delimiters.NewLine), parseInput)
         initialiseDefaults()
         initialised = true
