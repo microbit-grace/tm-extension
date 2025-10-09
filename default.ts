@@ -140,7 +140,7 @@ namespace SerialCommands {
                 basic.pause(isSlowWave ? 500 : 250)
                 prevAngles[idx] = newAngle
                 servoPins[idx].setAngle(newAngle)
-                serial.writeLine("Servo[" + idx + "] to " + servoModes[idx] + " at " + newAngle)
+                // serial.writeLine("Servo[" + idx + "] to " + servoModes[idx] + " at " + newAngle)
             })
         }
     }
