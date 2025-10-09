@@ -6,6 +6,7 @@
 namespace SerialCommands {
     let initialised = false
     export let callbacks: CommandCallbacks = null
+    init()
     
     function init(): void {
         serial.writeLine(`initialised? ${initialised} ${callbacks}`)
