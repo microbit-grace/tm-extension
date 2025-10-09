@@ -59,7 +59,7 @@ namespace servos {
     }
 
     /**
-     * Set fast wave gesture
+     * Set slow wave gesture
      */
     //% blockId=servossetslowwave block="set servo %servoPin to slow wave"
     //% servoPin.fieldEditor="gridpicker"
