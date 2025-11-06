@@ -1,0 +1,16 @@
+{
+  "ServoPinNumber.P0|block": "P0",
+  "ServoPinNumber.P1|block": "P1",
+  "ServoPinNumber.P2|block": "P2",
+  "TMMachineLearning.onMLGreenStart|block": "🟢 on green start",
+  "TMMachineLearning.onMLOrangeStart|block": "🟠 on orange start",
+  "TMMachineLearning.onMLPurpleStart|block": "🟣 on purple start",
+  "servos.setFastWave|block": "set servo %servoPin to fast wave",
+  "servos.setSlowWave|block": "set servo %servoPin to slow wave",
+  "servos.stopWave|block": "stop wave on servo %servoPin",
+  "servos|block": "servos",
+  "{id:category}SerialCommands": "SerialCommands",
+  "{id:category}Servos": "Servos",
+  "{id:category}TMMachineLearning": "TMMachineLearning",
+  "{id:group}Gestures": "Gestures"
+}

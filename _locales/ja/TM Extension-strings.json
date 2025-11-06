@@ -1,0 +1,16 @@
+{
+  "ServoPinNumber.P0|block": "P0",
+  "ServoPinNumber.P1|block": "P1",
+  "ServoPinNumber.P2|block": "P2",
+  "TMMachineLearning.onMLGreenStart|block": "🟢 緑が開始されたとき",
+  "TMMachineLearning.onMLOrangeStart|block": "🟠 オレンジが開始されたとき",
+  "TMMachineLearning.onMLPurpleStart|block": "🟣 紫が開始されたとき",
+  "servos.setFastWave|block": "サーボ %servoPin を速い波に設定",
+  "servos.setSlowWave|block": "サーボ %servoPin を遅い波に設定",
+  "servos.stopWave|block": "サーボ %servoPin の波を停止",
+  "servos|block": "サーボ",
+  "{id:category}SerialCommands": "シリアルコマンド",
+  "{id:category}Servos": "サーボ",
+  "{id:category}TMMachineLearning": "TM機械学習",
+  "{id:group}Gestures": "ジェスチャー"
+}

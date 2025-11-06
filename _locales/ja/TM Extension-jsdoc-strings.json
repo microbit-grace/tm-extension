@@ -1,0 +1,6 @@
+{
+  "servos": "マイクロサーボを制御\n\n追加のサーボブロック",
+  "servos.setFastWave": "速い波のジェスチャーを設定",
+  "servos.setSlowWave": "遅い波のジェスチャーを設定",
+  "servos.stopWave": "波のジェスチャーを停止"
+}

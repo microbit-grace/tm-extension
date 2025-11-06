@@ -1,0 +1,6 @@
+{
+  "servos": "Control micro servos\n\nAdditional servo blocks",
+  "servos.setFastWave": "Set fast wave gesture",
+  "servos.setSlowWave": "Set slow wave gesture",
+  "servos.stopWave": "Stop wave gesture"
+}

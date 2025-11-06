@@ -11,7 +11,11 @@
         "custom.ts",
         "default.ts",
         "commandMap.ts",
-        "serialCommand.ts"
+        "serialCommand.ts",
+        "_locales/ja/TM Extension-strings.json",
+        "_locales/ja/TM Extension-jsdocs-strings.json",
+        "_locales/en/TM Extension-strings.json",
+        "_locales/en/TM Extension-jsdocs-strings.json"
     ],
     "testFiles": [
         "test.ts",
