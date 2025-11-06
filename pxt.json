@@ -1,5 +1,5 @@
 {
-    "name": "TM-Extension",
+    "name": "tm-extension",
     "description": "",
     "dependencies": {
         "core": "*",
@@ -12,10 +12,10 @@
         "default.ts",
         "commandMap.ts",
         "serialCommand.ts",
-        "_locales/ja/TM-Extension-strings.json",
-        "_locales/ja/TM-Extension-jsdocs-strings.json",
-        "_locales/en/TM-Extension-strings.json",
-        "_locales/en/TM-Extension-jsdocs-strings.json"
+        "_locales/ja/tm-extension-strings.json",
+        "_locales/ja/tm-extension-jsdocs-strings.json",
+        "_locales/en/tm-extension-strings.json",
+        "_locales/en/tm-extension-jsdocs-strings.json"
     ],
     "testFiles": [
         "test.ts",
