@@ -13,9 +13,9 @@
         "commandMap.ts",
         "serialCommand.ts",
         "_locales/ja/tm-extension-strings.json",
-        "_locales/ja/tm-extension-jsdocs-strings.json",
+        "_locales/ja/tm-extension-jsdoc-strings.json",
         "_locales/en/tm-extension-strings.json",
-        "_locales/en/tm-extension-jsdocs-strings.json"
+        "_locales/en/tm-extension-jsdoc-strings.json"
     ],
     "testFiles": [
         "test.ts",
